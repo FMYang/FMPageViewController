@@ -10,28 +10,50 @@
 
 import UIKit
 
-// 页面滑动方向
+/// 页面滑动方向
+///
+/// - left: 左滑
+/// - right: 右滑
 enum FMPageViewScrollDiretion {
     case left
     case right
 }
 
 protocol FMPageViewControllerDataSource: class {
-    // page的数量
+    /// page的数量
+    ///
+    /// - Returns: page的数量
     func numberOfPages() -> Int
 
-    // 获取childController
+    /// 获取childController
+    ///
+    /// - Parameters:
+    ///   - pageViewController: 容器视图控制器
+    ///   - index: 第几页
+    /// - Returns: 当前页加载的VC
     func pageViewController(pageViewController: FMPageViewController, controllerAtIndex index: Int) -> UIViewController
 }
 
 protocol FMPageViewControllerDelegate: class {
-    // 页面切换完成
+    /// 页面切换完成代理
+    ///
+    /// - Parameters:
+    ///   - viewController: 当前控制器
+    ///   - page: 当前页码
     func pageViewControllerDidChange(viewController: UIViewController, page: Int)
 
-    // 预加载viewController数据
+    /// 预加载控制器的代理
+    ///
+    /// - Parameters:
+    ///   - viewController: 预加载的控制器
+    ///   - page: 预加载控制器的页码
     func pageViewControllerPreLoad(viewController: UIViewController, page: Int)
 
-    // pageview滑动代理
+    /// 滑动代理
+    ///
+    /// - Parameters:
+    ///   - scrollView: 滑动View
+    ///   - page: 滑动到哪一页
     func pageViewControllerScrollDidScroll(_ scrollView: UIScrollView, page: Int)
 }
 
@@ -52,7 +74,7 @@ class FMPageViewController: UIViewController {
 
     lazy var pageScrollView: UIScrollView = {
         let view = UIScrollView()
-        view.backgroundColor = .lightGray
+        view.backgroundColor = .clear
         view.isPagingEnabled = true
         view.delegate = self
         return view
@@ -256,7 +278,9 @@ extension FMPageViewController: UIScrollViewDelegate {
 }
 
 extension Array where Element: Equatable {
-    // 根据值从数组删除对象
+    /// 根据值删除对象
+    ///
+    /// - Parameter object: 要删除的对象
     mutating func remove(_ object: Element) {
         self = self.filter() { $0 != object }
     }
@@ -264,8 +288,9 @@ extension Array where Element: Equatable {
 
 private var pageReuseKey = "page_reuse_key"
 
-// 扩展UIViewController添加重用标识变量
+// 扩展UIViewController
 extension UIViewController {
+    /// 添加重用标识属性
     var reuseIdentify: String? {
         get {
             return objc_getAssociatedObject(self, &pageReuseKey) as? String
@@ -278,6 +303,9 @@ extension UIViewController {
         }
     }
 
+    /// 初始化UIViewController
+    ///
+    /// - Parameter reuseIdentify: 重用标识
     convenience init(reuseIdentify: String) {
         self.init()
         self.reuseIdentify = reuseIdentify

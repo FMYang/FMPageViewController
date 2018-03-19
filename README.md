@@ -2,7 +2,7 @@
 # 横向翻页控件
 
 ### 效果图
-![Example2](media/15214471584926/Example2.gif)
+![效果图](https://github.com/FMYang/FMPageViewController/blob/master/Screenshot.gif)
 
 
 ### 使用

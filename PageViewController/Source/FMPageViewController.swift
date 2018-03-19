@@ -152,7 +152,7 @@ class FMPageViewController: UIViewController {
         }
     }
 
-    // 加入容器并设置frame
+    /// 加入容器并设置frame
     private func addChildViewController(page: Int) {
         if page < 0 || page > totalPages-1 { return }
         let vc = datasource!.pageViewController(pageViewController: self, controllerAtIndex: page)
@@ -176,7 +176,7 @@ class FMPageViewController: UIViewController {
         visibleViewController.append(vc)
     }
 
-    // 获取容器中的VC，前一个、当前、后一个VC
+    /// 获取容器中的VC，前一个、当前、后一个VC
     private func pageDidChange(page: Int) {
         for vc in visibleViewController {
             if vc.view.frame.origin.x == pageScrollView.contentOffset.x {
@@ -198,7 +198,7 @@ class FMPageViewController: UIViewController {
         }
     }
 
-    // 获取前面和后面的VC
+    /// 获取前面和后面的VC
     private func getBeforAndAfterVC(currentVC: UIViewController) -> (UIViewController?, UIViewController?) {
         var beforeVC: UIViewController?
         var afterVC: UIViewController?
@@ -253,7 +253,7 @@ extension FMPageViewController: UIScrollViewDelegate {
         }
     }
 
-    // 跳页和快速滑动情况处理
+    /// 跳页和快速滑动情况处理
     func scrollViewDidEndScrollingAnimation(_ scrollView: UIScrollView) {
         if scrollView == pageScrollView {
             if scrollView.contentOffset.x <= 0 || scrollView.contentOffset.x >= scrollView.contentSize.width {
